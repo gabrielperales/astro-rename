@@ -94,7 +94,7 @@ type RenameOptions = {
    * The default is to match the name with word boundaries on either side, but you can change this to match only the start or end of the name, or to match more or less than a whole word.
    *
    * @default ```js
-   * (key: string) => `(:^|[^-&;:_])(${key})(:$|[^-&;:_\./])`
+   * (key: string) => `(:^|[^-&;:_])(${key})(?![a-zA-Z0-9_-])(:$|[^-&;:_\./])`
    * ```
    */
   matchClasses?: (key: string) => string;
