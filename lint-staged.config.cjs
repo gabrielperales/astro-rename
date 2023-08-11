@@ -1,14 +1,8 @@
 const config = {
-  '**/*.(ts|tsx)': () => 'yarn tsc',
-
-  '**/*.(ts|tsx|js|cjs|mjs|jsx|astro)': (filenames) => [
+  '**/*.(ts|js|cjs|mjs)': (filenames) => [
+    'yarn tsc',
     `yarn lint --fix ${filenames.join(' ')}`,
     `yarn prettier --write ${filenames.join(' ')}`,
-  ],
-
-  '**/*.css': (filenames) => [
-    `yarn stylelint --fix ${filenames.join(' ')}`,
-    `yarn prettier --write  ${filenames.join(' ')}`,
   ],
 
   '**/*.(md|json)': (filenames) =>
