@@ -212,6 +212,11 @@ Here's a list of tasks I plan to work on:
 - [ ] Include server-side rendering support
 - [ ] Move temporal files to a temporary directory instead of the root of the project
 - [ ] Improve stadistics of file size reduction
+- [ ] Publish the package in multiple registers
+  - [x] NPM
+  - [ ] Yarn
+  - [ ] PNPM
+  - [ ] GitHub
 - [x] Show size of the result files with gzip and brotli
 
 ## Licence
