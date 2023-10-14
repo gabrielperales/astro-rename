@@ -20,7 +20,6 @@
   "rules": {
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/consistent-type-imports": "error",
-    "no-console": "error",
     "no-useless-concat": "error",
     "prefer-template": "error",
     "arrow-body-style": "error",

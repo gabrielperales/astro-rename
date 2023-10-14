@@ -33,7 +33,6 @@ export default function renameIntegration(
         try {
           await mkdir(dir);
         } catch (_) {
-          // eslint-disable-next-line no-console
           console.error(
             `\u001b[31mTemporal directory to process files couldn't be created.\u001b[39m`
           );
@@ -46,7 +45,6 @@ export default function renameIntegration(
             flag: 'w',
           });
         } catch (_) {
-          // eslint-disable-next-line no-console
           console.error(
             `\u001b[31mThere was an error saving the CSS map.\u001b[39m`
           );
@@ -98,7 +96,6 @@ export default function renameIntegration(
             };
           }
         } catch (_) {
-          // eslint-disable-next-line no-console
           console.error(
             `\u001b[31mA CSS map of transformed classes it isn't provided\u001b[39m`
           );
@@ -147,7 +144,6 @@ export default function renameIntegration(
 
           stats.printTable();
         } catch (_) {
-          // eslint-disable-next-line no-console
           console.error(
             `\u001b[31mThe build directory doesn't exists.\u001b[39m`
           );
@@ -157,7 +153,6 @@ export default function renameIntegration(
         try {
           await rmdir(MAPS_DIRECTORY, { recursive: true });
         } catch (_) {
-          // eslint-disable-next-line no-console
           console.error(
             `\u001b[31mIt was not possible to remove the class maps directory.\u001b[39m`
           );
