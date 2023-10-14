@@ -96,9 +96,10 @@ export default function renameIntegration(
 
         try {
           for await (const map of walkFiles(MAPS_DIRECTORY)) {
+            const res = await readFile(map, 'utf8');
             classMap = {
               ...classMap,
-              ...JSON.parse(await readFile(map, 'utf8')),
+              ...JSON.parse(res),
             };
           }
         } catch (_) {
