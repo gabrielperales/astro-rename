@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { mkdir, readFile, rmdir, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { brotliCompressSync, gzipSync } from 'node:zlib';
@@ -28,10 +29,11 @@ export default function renameIntegration(
       ...options?.rename,
       outputMapCallback: async (map) => {
         const content = JSON.stringify(map);
-        const dir = MAPS_DIRECTORY;
 
         try {
-          await mkdir(dir);
+          if (!existsSync(MAPS_DIRECTORY)) {
+            await mkdir(MAPS_DIRECTORY);
+          }
         } catch (err) {
           console.error(
             `\u001b[31mTemporal directory to process files couldn't be created: ${err}.\u001b[39m`
@@ -40,10 +42,14 @@ export default function renameIntegration(
         }
 
         try {
-          await writeFile(`${dir}/class-map-${md5(content)}.json`, content, {
-            encoding: 'utf8',
-            flag: 'w',
-          });
+          await writeFile(
+            `${MAPS_DIRECTORY}/class-map-${md5(content)}.json`,
+            content,
+            {
+              encoding: 'utf8',
+              flag: 'w',
+            }
+          );
         } catch (err) {
           console.error(
             `\u001b[31mThere was an error saving the CSS map: ${err}.\u001b[39m`
