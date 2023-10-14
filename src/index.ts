@@ -32,9 +32,9 @@ export default function renameIntegration(
 
         try {
           await mkdir(dir);
-        } catch (_) {
+        } catch (err) {
           console.error(
-            `\u001b[31mTemporal directory to process files couldn't be created.\u001b[39m`
+            `\u001b[31mTemporal directory to process files couldn't be created: ${err}.\u001b[39m`
           );
           return;
         }
@@ -44,9 +44,9 @@ export default function renameIntegration(
             encoding: 'utf8',
             flag: 'w',
           });
-        } catch (_) {
+        } catch (err) {
           console.error(
-            `\u001b[31mThere was an error saving the CSS map.\u001b[39m`
+            `\u001b[31mThere was an error saving the CSS map: ${err}.\u001b[39m`
           );
           return;
         }
@@ -152,9 +152,9 @@ export default function renameIntegration(
 
         try {
           await rmdir(MAPS_DIRECTORY, { recursive: true });
-        } catch (_) {
+        } catch (err) {
           console.error(
-            `\u001b[31mIt was not possible to remove the class maps directory.\u001b[39m`
+            `\u001b[31mIt was not possible to remove the class maps directory: ${err}\u001b[39m`
           );
         }
       },
