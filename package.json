@@ -59,8 +59,5 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "sideEffects": [],
-  "engines": {
-    "node": ">=20.2"
-  }
+  "sideEffects": []
 }
