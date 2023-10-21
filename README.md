@@ -230,3 +230,14 @@ Special thanks to the following individuals and projects:
 - [postcss-rename](https://github.com/google/postcss-rename) by Google
 - [@JSC0DER](https://github.com/JSC0DER) for their assistance with the [initial idea](https://github.com/google/postcss-rename/discussions/44)
 - [@Gechu03](https://github.com/Gechu03) and [@sergiomalagon](https://github.com/sergiomalagon) for their assistance with the regular expressions to match the CSS selectors
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->

@@ -2,7 +2,7 @@
   "name": "astro-rename",
   "packageManager": "yarn@3.5.1",
   "type": "module",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "license": "GPL-3.0+",
   "author": "Rodrigo Tomé <hi@rodrigotome.es>",
   "main": "./dist/index.js",
