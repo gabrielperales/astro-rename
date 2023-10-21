@@ -240,6 +240,7 @@ Special thanks to the following individuals and projects:
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://jakebolam.com"><img src="https://avatars.githubusercontent.com/u/3534236?v=4?s=100" width="100px;" alt="Jake Bolam"/><br /><sub><b>Jake Bolam</b></sub></a><br /><a href="#bug-jakebolam" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://kenchandev.com"><img src="https://avatars.githubusercontent.com/u/4991363?v=4?s=100" width="100px;" alt="Ken Chan"/><br /><sub><b>Ken Chan</b></sub></a><br /><a href="#bug-kenchandev" title="Bug reports">🐛</a></td>
     </tr>
   </tbody>
 </table>
