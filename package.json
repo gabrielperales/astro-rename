@@ -1,5 +1,6 @@
 {
   "name": "astro-rename",
+  "description": "astro-rename is an Astro integration that brings postcss-rename functionality to your Astro project without the need for configuration.",
   "packageManager": "yarn@4.0.1",
   "type": "module",
   "version": "1.1.1",
@@ -11,9 +12,15 @@
     "type": "git",
     "url": "https://github.com/RodrigoTomeES/astro-rename.git"
   },
+  "homepage": "https://github.com/RodrigoTomeES/astro-rename",
   "keywords": [
     "astro-integration",
-    "postcss-rename"
+    "postcss-rename",
+    "astro-component",
+    "withastro",
+    "performance",
+    "perf",
+    "optimization"
   ],
   "bugs": "https://github.com/RodrigoTomeES/astro-rename/issues",
   "files": [
