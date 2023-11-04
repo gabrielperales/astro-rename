@@ -16,7 +16,7 @@ import {
 } from './utils.js';
 
 import type { AstroIntegration } from 'astro';
-import type { InteralRenameOptions, RenameOptions } from './types.js';
+import type { InternalRenameOptions, RenameOptions } from './types.js';
 
 export default function renameIntegration(
   options?: RenameOptions,
@@ -60,7 +60,7 @@ export default function renameIntegration(
         options?.rename?.outputMapCallback?.(map);
       },
     },
-  } satisfies InteralRenameOptions;
+  } satisfies InternalRenameOptions;
 
   return {
     name: 'astro-rename',
@@ -74,16 +74,10 @@ export default function renameIntegration(
         } catch (_) {}
 
         updateConfig({
-          // TODO: Check types
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           vite: await getViteConfiguration(_options?.rename, config.vite),
         });
       },
       'astro:config:done': async ({ config }) => {
-        // TODO: Check types
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         if (config.output !== 'static') {
           throw new Error(
             `[astrojs-rename] \`output: "static"\` is only supported right now for this plugin.`,

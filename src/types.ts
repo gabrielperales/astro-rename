@@ -63,7 +63,7 @@ export type RenameOptions =
     }
   | undefined;
 
-export type InteralRenameOptions = {
+export type InternalRenameOptions = {
   rename: {
     strategy: PostcssRenameOptions['strategy'];
     by: PostcssRenameOptions['by'];

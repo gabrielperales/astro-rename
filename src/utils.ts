@@ -3,7 +3,9 @@ import { resolve } from 'node:path';
 import postcssRename from 'postcss-rename';
 
 import type { AstroConfig } from 'astro';
-import type { RenameOptions } from './types.js';
+import type { InternalRenameOptions } from './types.js';
+import type { Options as PostcssRenameOptions } from 'postcss-rename';
+import type { CSSOptions, UserConfig } from 'vite'; // import CSSOptions type
 
 export const MAPS_DIRECTORY = './class-maps';
 
@@ -12,10 +14,7 @@ export const escapeRegExp = (string: string) =>
 export const calculatePercent = (before: number, after: number) =>
   (100 - (after / before) * 100) | 0;
 
-// TODO: Check types
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-export async function* walkFiles(dir: string) {
+export async function* walkFiles(dir: string): AsyncGenerator<string> {
   const dirents = await readdir(dir, { withFileTypes: true });
 
   for (const dirent of dirents) {
@@ -27,13 +26,7 @@ export async function* walkFiles(dir: string) {
 }
 
 export const getPostCssConfig = async (
-  // TODO: Check types
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   root: UserConfig['root'],
-  // TODO: Check types
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   postcssInlineOptions: CSSOptions['postcss'],
 ) => {
   let postcssConfigResult;
@@ -61,13 +54,7 @@ export const getPostCssConfig = async (
 };
 
 export const getViteConfiguration = async (
-  // TODO: Check types
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  options: RenameOptions['rename'],
-  // TODO: Check types
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  options: InternalRenameOptions['rename'],
   viteConfig: AstroConfig['vite'],
 ) => {
   // We need to manually load postcss config files because when inlining the tailwind and autoprefixer plugins,
@@ -83,7 +70,7 @@ export const getViteConfiguration = async (
       ? postcssConfigResult.plugins.slice()
       : [];
 
-  postcssPlugins.push(postcssRename(options));
+  postcssPlugins.push(postcssRename(options as PostcssRenameOptions));
 
   return {
     css: {
