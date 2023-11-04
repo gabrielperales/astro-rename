@@ -34,7 +34,7 @@ export const getPostCssConfig = async (
   // TODO: Check types
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  postcssInlineOptions: CSSOptions['postcss']
+  postcssInlineOptions: CSSOptions['postcss'],
 ) => {
   let postcssConfigResult;
 
@@ -68,13 +68,13 @@ export const getViteConfiguration = async (
   // TODO: Check types
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  viteConfig: AstroConfig['vite']
+  viteConfig: AstroConfig['vite'],
 ) => {
   // We need to manually load postcss config files because when inlining the tailwind and autoprefixer plugins,
   // that causes vite to ignore postcss config files
   const postcssConfigResult = await getPostCssConfig(
     viteConfig.root,
-    viteConfig.css?.postcss
+    viteConfig.css?.postcss,
   );
   const postcssOptions =
     (postcssConfigResult && postcssConfigResult.options) || {};

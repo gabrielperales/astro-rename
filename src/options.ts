@@ -6,5 +6,6 @@ export const defaultOptions = {
     by: 'whole',
   },
   targetExt: ['html', 'js'],
-  matchClasses: (key: string) => `(:^|[^-&;:_])(${key})(?![a-zA-Z0-9_-])(:$|[^-&;:_\./])`,
+  matchClasses: (key: string) =>
+    `(:^|[^-&;:_])(${key})(?![a-zA-Z0-9_-])(:$|[^-&;:_\./])`,
 } satisfies RenameOptions;

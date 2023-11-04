@@ -8,10 +8,10 @@ import prettyBytes from 'pretty-bytes';
 
 import { defaultOptions } from './options.js';
 import {
+  MAPS_DIRECTORY,
   calculatePercent,
   escapeRegExp,
   getViteConfiguration,
-  MAPS_DIRECTORY,
   walkFiles,
 } from './utils.js';
 
@@ -19,7 +19,7 @@ import type { AstroIntegration } from 'astro';
 import type { InteralRenameOptions, RenameOptions } from './types.js';
 
 export default function renameIntegration(
-  options?: RenameOptions
+  options?: RenameOptions,
 ): AstroIntegration {
   const _options = {
     ...defaultOptions,
@@ -36,7 +36,7 @@ export default function renameIntegration(
           }
         } catch (err) {
           console.error(
-            `\u001b[31mTemporal directory to process files couldn't be created: ${err}.\u001b[39m`
+            `\u001b[31mTemporal directory to process files couldn't be created: ${err}.\u001b[39m`,
           );
           return;
         }
@@ -48,11 +48,11 @@ export default function renameIntegration(
             {
               encoding: 'utf8',
               flag: 'w',
-            }
+            },
           );
         } catch (err) {
           console.error(
-            `\u001b[31mThere was an error saving the CSS map: ${err}.\u001b[39m`
+            `\u001b[31mThere was an error saving the CSS map: ${err}.\u001b[39m`,
           );
           return;
         }
@@ -86,7 +86,7 @@ export default function renameIntegration(
         // @ts-ignore
         if (config.output !== 'static') {
           throw new Error(
-            `[astrojs-rename] \`output: "static"\` is only supported right now for this plugin.`
+            `[astrojs-rename] \`output: "static"\` is only supported right now for this plugin.`,
           );
         }
       },
@@ -104,7 +104,7 @@ export default function renameIntegration(
           }
         } catch (_) {
           console.error(
-            `\u001b[31mA CSS map of transformed classes it isn't provided\u001b[39m`
+            `\u001b[31mA CSS map of transformed classes it isn't provided\u001b[39m`,
           );
           return;
         }
@@ -122,12 +122,12 @@ export default function renameIntegration(
             Object.keys(classMap).forEach((key) => {
               const regex = new RegExp(
                 _options.matchClasses?.(escapeRegExp(key)),
-                'g'
+                'g',
               );
 
               content = content.replaceAll(
                 regex,
-                `$1${classMap[key as keyof typeof classMap]}$3`
+                `$1${classMap[key as keyof typeof classMap]}$3`,
               );
             });
 
@@ -152,7 +152,7 @@ export default function renameIntegration(
           stats.printTable();
         } catch (_) {
           console.error(
-            `\u001b[31mThe build directory doesn't exists.\u001b[39m`
+            `\u001b[31mThe build directory doesn't exists.\u001b[39m`,
           );
           return;
         }
@@ -161,7 +161,7 @@ export default function renameIntegration(
           await rmdir(MAPS_DIRECTORY, { recursive: true });
         } catch (err) {
           console.error(
-            `\u001b[31mIt was not possible to remove the class maps directory: ${err}\u001b[39m`
+            `\u001b[31mIt was not possible to remove the class maps directory: ${err}\u001b[39m`,
           );
         }
       },
