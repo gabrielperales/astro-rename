@@ -1,0 +1,36 @@
+name: Test on push
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  test:
+    name: 'Test: ${{ matrix.os }} (node@${{ matrix.NODE_VERSION }})'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        OS: [ubuntu-latest]
+        NODE_VERSION: [18, 20.5.1]
+        include:
+          - os: macos-latest
+            NODE_VERSION: 18
+          - os: windows-latest
+            NODE_VERSION: 18.17.1
+      fail-fast: false
+    env:
+      NODE_VERSION: ${{ matrix.NODE_VERSION }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node@${{ matrix.NODE_VERSION }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.NODE_VERSION }}
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Test
+        run: yarn test
