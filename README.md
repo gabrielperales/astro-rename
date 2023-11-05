@@ -204,7 +204,7 @@ Here's an example of the plugin in action in my [awa-db](https://github.com/Rodr
 
 Here's a list of tasks I plan to work on:
 
-- [ ] Fix error types
+- [x] Fix error types
 - [x] Add test coverage
 - [ ] Add support for IDs
 - [ ] Enable handling of multiple CSS files

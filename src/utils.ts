@@ -5,6 +5,9 @@ import postcssRename from 'postcss-rename';
 import type { InternalRenameOptions } from './types.js';
 import type { Options as PostcssRenameOptions } from 'postcss-rename';
 import type { CSSOptions, UserConfig } from 'vite';
+import type { ProcessOptions } from 'postcss';
+import type { ResultPlugin } from 'postcss-load-config';
+import type { Document as Document_, Root as Root_ } from 'postcss';
 
 export const MAPS_DIRECTORY = './class-maps';
 
@@ -36,9 +39,6 @@ export const getPostCssConfig = async (
   if (
     !(typeof postcssInlineOptions === 'object' && postcssInlineOptions !== null)
   ) {
-    // TODO: Check types
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     const { default: postcssrc } = await import('postcss-load-config');
     const searchPath =
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -54,10 +54,19 @@ export const getPostCssConfig = async (
   return postcssConfigResult;
 };
 
+// Explicitly type the return value because of a bug in typescript
+// @see https://github.com/microsoft/TypeScript/issues/42873
 export const getViteConfiguration = async (
   options: InternalRenameOptions['rename'],
   viteConfig: UserConfig,
-) => {
+): Promise<{
+  css: {
+    postcss: {
+      options: ProcessOptions<Document_ | Root_>;
+      plugins: ResultPlugin[];
+    };
+  };
+}> => {
   // We need to manually load postcss config files because when inlining the tailwind and autoprefixer plugins,
   // that causes vite to ignore postcss config files
   const postcssConfigResult = await getPostCssConfig(

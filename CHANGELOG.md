@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Regular expresion to match class names now is more strict, avoiding matches with incomplete class names.
+
 ## [1.1.2] - 2023-11-04
 
 ### Changed
