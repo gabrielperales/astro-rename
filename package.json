@@ -30,7 +30,8 @@
     "build": "yarn lint && yarn tsc && lightrix build 'src/**/*.ts'",
     "prepare": "husky install",
     "tsc": "tsc --project ./",
-    "lint": "eslint --fix \"**/*.{ts,tsx,js,cjs,mjs,jsx}\""
+    "lint": "eslint --fix \"**/*.{ts,tsx,js,cjs,mjs,jsx}\"",
+    "test": "vitest"
   },
   "dependencies": {
     "console-table-printer": "2.11.2",
@@ -58,7 +59,8 @@
     "husky": "8.0.3",
     "lint-staged": "15.0.2",
     "prettier": "3.0.3",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "vitest": "^0.34.6"
   },
   "config": {
     "commitizen": {

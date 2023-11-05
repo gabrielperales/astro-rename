@@ -1,13 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "allowJs": true,
+    "allowJs": false,
     "allowSyntheticDefaultImports": false,
     "allowUmdGlobalAccess": false,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "alwaysStrict": true,
-    "checkJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
     "esModuleInterop": true,
@@ -38,6 +37,6 @@
   "ts-node": {
     "esm": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "test/**/*.ts"],
   "exclude": ["node_modules", "dist", ".vscode", ".husky"]
 }
