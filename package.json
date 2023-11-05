@@ -31,7 +31,8 @@
     "prepare": "husky install",
     "tsc": "tsc --project ./",
     "lint": "eslint --fix \"**/*.{ts,tsx,js,cjs,mjs,jsx}\"",
-    "test": "vitest"
+    "test": "vitest",
+    "test:ci": "vitest run"
   },
   "dependencies": {
     "console-table-printer": "2.11.2",
