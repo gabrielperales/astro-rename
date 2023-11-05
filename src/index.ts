@@ -115,13 +115,13 @@ export default function renameIntegration(
 
             Object.keys(classMap).forEach((key) => {
               const regex = new RegExp(
-                _options.matchClasses?.(escapeRegExp(key)),
+                _options.matchClasses(escapeRegExp(key)),
                 'g',
               );
 
               content = content.replaceAll(
                 regex,
-                `$1${classMap[key as keyof typeof classMap]}$3`,
+                `$1${classMap[key as keyof typeof classMap]}`,
               );
             });
 

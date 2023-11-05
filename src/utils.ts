@@ -2,13 +2,14 @@ import { readdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import postcssRename from 'postcss-rename';
 
-import type { AstroConfig } from 'astro';
 import type { InternalRenameOptions } from './types.js';
 import type { Options as PostcssRenameOptions } from 'postcss-rename';
-import type { CSSOptions, UserConfig } from 'vite'; // import CSSOptions type
+import type { CSSOptions, UserConfig } from 'vite';
 
 export const MAPS_DIRECTORY = './class-maps';
 
+export const matchClasses = (key: string) =>
+  `(:^|[^&;:_/\[\\]a-zA-Z0-9_.-])(${key})(?=$|[^&;:_/\[\\]a-zA-Z0-9_.-])`;
 export const escapeRegExp = (string: string) =>
   string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 export const calculatePercent = (before: number, after: number) =>
@@ -55,7 +56,7 @@ export const getPostCssConfig = async (
 
 export const getViteConfiguration = async (
   options: InternalRenameOptions['rename'],
-  viteConfig: AstroConfig['vite'],
+  viteConfig: UserConfig,
 ) => {
   // We need to manually load postcss config files because when inlining the tailwind and autoprefixer plugins,
   // that causes vite to ignore postcss config files
@@ -63,12 +64,8 @@ export const getViteConfiguration = async (
     viteConfig.root,
     viteConfig.css?.postcss,
   );
-  const postcssOptions =
-    (postcssConfigResult && postcssConfigResult.options) || {};
-  const postcssPlugins =
-    postcssConfigResult && postcssConfigResult.plugins
-      ? postcssConfigResult.plugins.slice()
-      : [];
+  const postcssOptions = postcssConfigResult?.options ?? {};
+  const postcssPlugins = postcssConfigResult?.plugins?.slice() ?? [];
 
   postcssPlugins.push(postcssRename(options as PostcssRenameOptions));
 
