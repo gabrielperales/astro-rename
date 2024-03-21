@@ -40,6 +40,7 @@
     "postcss": "8.4.31",
     "postcss-load-config": "4.0.1",
     "postcss-rename": "0.6.1",
+    "postcss-variable-compress": "3.0.0",
     "pretty-bytes": "6.1.1"
   },
   "devDependencies": {

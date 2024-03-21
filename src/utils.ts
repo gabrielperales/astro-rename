@@ -1,6 +1,7 @@
 import { readdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import postcssRename from 'postcss-rename';
+import postcssVariableCompress from 'postcss-variable-compress';
 
 import type { InternalRenameOptions } from './types.js';
 import type { Options as PostcssRenameOptions } from 'postcss-rename';
@@ -77,6 +78,9 @@ export const getViteConfiguration = async (
   const postcssPlugins = postcssConfigResult?.plugins?.slice() ?? [];
 
   postcssPlugins.push(postcssRename(options as PostcssRenameOptions));
+  // eslint-disable-next-line
+  // @ts-ignore
+  postcssPlugins.push(postcssVariableCompress());
 
   return {
     css: {

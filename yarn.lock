@@ -2014,6 +2014,7 @@ __metadata:
     postcss: "npm:8.4.31"
     postcss-load-config: "npm:4.0.1"
     postcss-rename: "npm:0.6.1"
+    postcss-variable-compress: "npm:3.0.0"
     prettier: "npm:3.0.3"
     pretty-bytes: "npm:6.1.1"
     typescript: "npm:5.2.2"
@@ -6732,6 +6733,15 @@ __metadata:
     cssesc: "npm:^3.0.0"
     util-deprecate: "npm:^1.0.2"
   checksum: e779aa1f8ca9ee45d562400aac6109a2bccc59559b6e15adec8bc2a71d395ca563a378fd68f6a61963b4ef2ca190e0c0486e6dc6c41d755f3b82dd6e480e6941
+  languageName: node
+  linkType: hard
+
+"postcss-variable-compress@npm:3.0.0":
+  version: 3.0.0
+  resolution: "postcss-variable-compress@npm:3.0.0"
+  peerDependencies:
+    postcss: ^8.2.8
+  checksum: cc67906a4ea56f48ed0ee80dc70097f1f2e2f497b55caa7154144b3498cfc9ede99a7f1f43453a326829db3ff0f7604fdcfd49b081d1857a195301c956e8cf97
   languageName: node
   linkType: hard
 
