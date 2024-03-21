@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Support for compressing CSS variables.
+
 ### Changed
 
 - Regular expresion to match class names now is more strict, avoiding matches with incomplete class names.
