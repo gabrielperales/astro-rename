@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Regular expresion to match class names now is more strict, avoiding matches with incomplete class names.
 
+### Fixed
+
+- Config types are now correctly exported, so now the plugin has suggestion in options.
+
 ## [1.1.2] - 2023-11-04
 
 ### Changed
