@@ -6,7 +6,7 @@ Astro-Rename is an Astro integration that brings [postcss-rename](https://github
 
 - [x] Compress CSS classes
 - [ ] Compress CSS IDs
-- [ ] Compress CSS Variables
+- [x] Compress CSS Variables
 - [x] Replace CSS classes in HTML, JS, and other files
 
 ## Installation
