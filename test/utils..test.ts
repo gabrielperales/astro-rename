@@ -199,3 +199,12 @@ test('matchClasses - h-4 match when use template quote', () => {
     'const test = `h-4 h-4[h-4]`'.replaceAll(generateRegex('h-4'), `$1test`),
   ).toBe('const test = `test h-4[h-4]`');
 });
+
+test('matchClasses - link match but not <link /> tag', () => {
+  expect(
+    '<link class="link">sfds</link>'.replaceAll(
+      generateRegex('link'),
+      `$1test`,
+    ),
+  ).toBe('<link class="test">sfds</link>');
+});

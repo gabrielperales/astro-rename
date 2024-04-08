@@ -13,7 +13,7 @@ import type { Document as Document_, Root as Root_ } from 'postcss';
 export const MAPS_DIRECTORY = './class-maps';
 
 export const matchClasses = (key: string) =>
-  `(:^|[^&;:_/\[\\]a-zA-Z0-9_.-])(${key})(?=$|[^&;:_/\[\\]a-zA-Z0-9_.-])`;
+  `(:^|[^&<;:_/\[\\]a-zA-Z0-9_.-])(${key})(?=$|[^&;:_/\[\\]a-zA-Z0-9_.-])`;
 export const escapeRegExp = (string: string) =>
   string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 export const calculatePercent = (before: number, after: number) =>
