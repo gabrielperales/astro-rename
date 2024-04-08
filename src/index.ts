@@ -115,7 +115,9 @@ export default function renameIntegration(
 
             Object.keys(classMap).forEach((key) => {
               const regex = new RegExp(
-                _options.matchClasses(escapeRegExp(key)),
+                _options
+                  .matchClasses(escapeRegExp(key))
+                  .replaceAll('&', '&#x26;'),
                 'g',
               );
 
