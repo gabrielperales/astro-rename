@@ -77,13 +77,6 @@ export default function renameIntegration(
           vite: await getViteConfiguration(_options?.rename, config.vite),
         });
       },
-      'astro:config:done': async ({ config }) => {
-        if (config.output !== 'static') {
-          throw new Error(
-            `[astrojs-rename] \`output: "static"\` is only supported right now for this plugin.`,
-          );
-        }
-      },
       'astro:build:done': async ({ dir }) => {
         const dist = fileURLToPath(dir);
         let classMap = {};
@@ -109,7 +102,8 @@ export default function renameIntegration(
           for await (const file of walkFiles(dist)) {
             if (!_options.targetExt.some((ext) => file.endsWith(ext))) continue;
 
-            const fileName = file.replace(dist, '');
+            const fileName = file.replace(dist, ''); // remove the dist path
+
             let content = await readFile(file, 'utf-8');
             const oldSize = content.length;
 
@@ -152,13 +146,56 @@ export default function renameIntegration(
           );
           return;
         }
+      },
+      'astro:build:ssr': async ({ manifest }) => {
+        let classMap = {};
 
         try {
-          await rmdir(MAPS_DIRECTORY, { recursive: true });
-        } catch (err) {
+          for await (const map of walkFiles(MAPS_DIRECTORY)) {
+            const res = await readFile(map, 'utf8');
+            classMap = {
+              ...classMap,
+              ...JSON.parse(res),
+            };
+          }
+        } catch (_) {
           console.error(
-            `\u001b[31mIt was not possible to remove the class maps directory: ${err}\u001b[39m`,
+            `\u001b[31mA CSS map of transformed classes it isn't provided\u001b[39m`,
           );
+          return;
+        }
+        const chunks = Object.values(manifest.entryModules)
+          .filter((key) => !key.startsWith('manifest_'))
+          .filter((key) => !key.startsWith('_astro'));
+
+        for (const file of chunks) {
+          if (!_options.targetExt.some((ext) => file.endsWith(ext))) continue;
+
+          const filePath = `./dist/server/${file}`;
+          try {
+            let content = await readFile(filePath, 'utf-8');
+
+            Object.keys(classMap).forEach((key) => {
+              const regex = new RegExp(
+                _options
+                  .matchClasses(escapeRegExp(key))
+                  .replaceAll('&', '&#x26;'),
+                'g',
+              );
+
+              content = content.replaceAll(
+                regex,
+                `$1${classMap[key as keyof typeof classMap]}`,
+              );
+            });
+
+            await writeFile(filePath, content, {
+              encoding: 'utf8',
+              flag: 'w',
+            });
+          } catch (err) {
+            console.log(err);
+          }
         }
       },
     },
