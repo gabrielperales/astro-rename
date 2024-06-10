@@ -5,6 +5,13 @@ import { brotliCompressSync, gzipSync } from 'node:zlib';
 import { Table } from 'console-table-printer';
 import md5 from 'md5';
 import prettyBytes from 'pretty-bytes';
+import * as parser from '@babel/parser';
+
+import _traverse from '@babel/traverse';
+import _generate from '@babel/generator';
+
+const traverse = _traverse.default;
+const generate = _generate.default;
 
 import { defaultOptions } from './options.js';
 import {
@@ -147,7 +154,7 @@ export default function renameIntegration(
           return;
         }
       },
-      'astro:build:ssr': async ({ manifest }) => {
+      'astro:build:ssr': async () => {
         let classMap = {};
 
         try {
@@ -164,32 +171,58 @@ export default function renameIntegration(
           );
           return;
         }
-        const chunks = Object.values(manifest.entryModules)
-          .filter((key) => !key.startsWith('manifest_'))
-          .filter((key) => !key.startsWith('_astro'));
 
-        for (const file of chunks) {
+        for await (const file of walkFiles('./dist/server')) {
           if (!_options.targetExt.some((ext) => file.endsWith(ext))) continue;
 
-          const filePath = `./dist/server/${file}`;
+          console.log('Processing file', file);
+
           try {
-            let content = await readFile(filePath, 'utf-8');
+            const code = await readFile(file, 'utf-8');
 
-            Object.keys(classMap).forEach((key) => {
-              const regex = new RegExp(
-                _options
-                  .matchClasses(escapeRegExp(key))
-                  .replaceAll('&', '&#x26;'),
-                'g',
-              );
-
-              content = content.replaceAll(
-                regex,
-                `$1${classMap[key as keyof typeof classMap]}`,
-              );
+            const ast = parser.parse(code, {
+              sourceType: 'module', // Allows parsing of ES6 modules
+              plugins: ['jsx'], // Include plugins if you're dealing with specific syntax like JSX
             });
 
-            await writeFile(filePath, content, {
+            const modifyString = (value: string) =>
+              Object.keys(classMap).reduce((value, key) => {
+                const regex = new RegExp(
+                  _options
+                    .matchClasses(escapeRegExp(key))
+                    .replaceAll('&', '&#x26;'),
+                  'g',
+                );
+
+                return value.replaceAll(
+                  regex,
+                  `$1${classMap[key as keyof typeof classMap]}`,
+                );
+              }, value);
+            // Traverse and modify the AST
+            traverse(ast, {
+              StringLiteral(path) {
+                path.node.value = modifyString(path.node.value);
+              },
+              // Modify JSX text and attributes
+              JSXText(path) {
+                path.node.value = modifyString(path.node.value);
+              },
+              // Modify template literals
+              TemplateLiteral(path) {
+                path.node.quasis.map((element) => {
+                  element.value.raw = modifyString(element.value.raw);
+                  element.value.cooked = modifyString(
+                    element.value.cooked ?? '',
+                  );
+                });
+              },
+            });
+
+            // Generate the modified code from the transformed AST
+            const output = generate(ast, {}, code);
+
+            await writeFile(file, output.code, {
               encoding: 'utf8',
               flag: 'w',
             });

@@ -38,14 +38,17 @@
     "test:ci": "vitest run"
   },
   "dependencies": {
+    "@babel/core": "7.21.0",
+    "@babel/generator": "7.21.0",
+    "@babel/parser": "7.21.0",
+    "@babel/traverse": "^7.24.7",
     "console-table-printer": "2.12.0",
     "md5": "2.3.0",
     "postcss": "8.4.38",
     "postcss-load-config": "5.0.3",
     "postcss-rename": "0.6.1",
     "postcss-variable-compress": "3.0.0",
-    "pretty-bytes": "6.1.1",
-    "unplugin-ast": "^0.10.0"
+    "pretty-bytes": "6.1.1"
   },
   "devDependencies": {
     "@commitlint/cli": "19.2.1",
@@ -53,6 +56,8 @@
     "@ianvs/prettier-plugin-sort-imports": "4.2.1",
     "@lightrix/scripts": "1.0.7",
     "@playform/build": "0.0.10",
+    "@types/babel__generator": "7",
+    "@types/babel__traverse": "7.20.0",
     "@types/md5": "2.3.5",
     "@types/node": "20.11.30",
     "@typescript-eslint/eslint-plugin": "7.3.1",
@@ -66,7 +71,7 @@
     "husky": "9.0.11",
     "lint-staged": "15.2.2",
     "prettier": "3.2.5",
-    "typescript": "5.4.3",
+    "typescript": "^5.4.3",
     "vitest": "1.4.0"
   },
   "config": {
