@@ -11,6 +11,7 @@ import type { ResultPlugin } from 'postcss-load-config';
 import type { Document as Document_, Root as Root_ } from 'postcss';
 
 export const MAPS_DIRECTORY = './.class-maps' as const;
+export const SERVER_DIRECTORY = './dist/server' as const;
 
 export const matchClasses = (key: string) =>
   `(:^|[^&<;:_/\[\\]a-zA-Z0-9_.-])(${key})(?=$|[^&;:_/\[\\]a-zA-Z0-9_.-])`;

@@ -16,6 +16,7 @@ const generate = _generate.default;
 import { defaultOptions } from './options.js';
 import {
   MAPS_DIRECTORY,
+  SERVER_DIRECTORY,
   calculatePercent,
   escapeRegExp,
   getViteConfiguration,
@@ -155,6 +156,8 @@ export default function renameIntegration(
         }
       },
       'astro:build:ssr': async () => {
+        if (!existsSync(SERVER_DIRECTORY)) return;
+
         let classMap = {};
 
         try {
@@ -172,7 +175,7 @@ export default function renameIntegration(
           return;
         }
 
-        for await (const file of walkFiles('./dist/server')) {
+        for await (const file of walkFiles(SERVER_DIRECTORY)) {
           if (!_options.targetExt.some((ext) => file.endsWith(ext))) continue;
 
           console.log('Processing file', file);
