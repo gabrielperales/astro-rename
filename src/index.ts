@@ -156,6 +156,7 @@ export default function renameIntegration(
         }
       },
       'astro:build:ssr': async () => {
+        // TODO: check dist directory dynamically getting the value from the config
         if (!existsSync(SERVER_DIRECTORY)) return;
 
         let classMap = {};
